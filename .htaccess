@@ -1,4 +1,4 @@
 AuthName "Accès protégé"
 AuthType Basic
-AuthUserFile /home/freeandlit/www/.htpasswd
+AuthUserFile /home/freeandlit/www/atelier1/.htpasswd
 Require valid-user
