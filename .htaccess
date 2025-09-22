@@ -1,0 +1,4 @@
+AuthName "Accès protégé"
+AuthType Basic
+AuthUserFile /home/freeandlit/www/.htpasswd
+Require valid-user
