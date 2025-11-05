@@ -7,7 +7,7 @@ if (isset($_SESSION['loggedin'], $_SESSION['role']) && $_SESSION['loggedin'] ===
     header('Location: page_admin.php'); // Si l'utilisateur s'est déjà connecté alors il sera automatiquement redirigé vers la page protected.php
     exit();
 } 
-if(isset($_SESSION['loggedin'], $_SESSION['role']) && $_SESSION['loggedin'] === true && $_SESSION['role'] = 'untilisateur'){
+if(isset($_SESSION['loggedin'], $_SESSION['role']) && $_SESSION['loggedin'] === true && $_SESSION['role'] = 'utilisateur'){
     header('Location: page_user.php'); // Si l'utilisateur s'est déjà connecté alors il sera automatiquement redirigé vers la page protected.php
     exit();
 }
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Stocker les informations utilisateur dans la session
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
-        $_SESSION['role'] = admin;
+        $_SESSION['role'] = 'admin';
 
         // Rediriger vers la page protégée
         header('Location: page_admin.php');
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }elseif($username === 'user' && $password === 'utilisateur'){
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
-        $_SESSION['role'] = utilisateur;
+        $_SESSION['role'] = 'utilisateur';
 
         // Rediriger vers la page protégée
         header('Location: page_user.php');
