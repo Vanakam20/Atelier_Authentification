@@ -1,7 +1,12 @@
 <?php
 // Démarre la session
 session_start();
-
+if (isset($_SESSION['visite'])){
+$_SESSION['visite']++;
+echo "Vous avez visité cette page d'accueil $_SESSION['visite'] fois";
+}else{
+$_SESSION['visite'] = 1;
+}
 // Vérifier si l'utilisateur est déjà connecté
 if (isset($_SESSION['loggedin'], $_SESSION['role']) && $_SESSION['loggedin'] === true &&  $_SESSION['role'] = 'admin') {
     header('Location: page_admin.php'); // Si l'utilisateur s'est déjà connecté alors il sera automatiquement redirigé vers la page protected.php
