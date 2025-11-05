@@ -5,8 +5,15 @@ session_start();
 // Si l'utilisateur possède déjà ce cookie, il sera redirigé automatiquement vers la page home.php
 // Dans le cas contraire il devra s'identifier.
 if (isset($_COOKIE['authToken'], $_COOKIE['authH'], $_COOKIE['role']) && hash_equals(hash('sha256',$_COOKIE['authToken']), $_COOKIE['authH'])) {
+        if($_COOKIE['role'] == 'admin'){
         header('Location: page_admin.php');
         exit();
+        }
+        if($_COOKIE['role'] == 'utilisateur'){
+        header('Location: page_user.php');
+        exit();
+        }
+        
 }
 
 // Gérer la soumission du formulaire
@@ -25,7 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Location: page_admin.php'); // L'utilisateur est dirigé vers la page home.php
         exit();
     } elseif($username === 'user' && $password === 'utilisateur') {
-        
+        $hex = bin2hex(random_bytes(16));
+        $auth = hash('sha256', $hex);
+        setcookie('role', 'utilisateur', time() + 60, '/', '', false, true);
+        setcookie('authToken', $hex, time() + 60, '/', '', false, true); // Le Cookie est initialisé et valable pendant 1 heure (3600 secondes) 
+        setcookie('authH', $auth, time() + 60, '/', '', false, true);
+        header('Location: page_admin.php'); // L'utilisateur est dirigé vers la page home.php
+        exit();
     } else {
         $error = "Nom d'utilisateur ou mot de passe incorrect.";
     }
