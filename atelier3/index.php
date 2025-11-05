@@ -3,7 +3,7 @@
 session_start();
 if (isset($_SESSION['visite'])){
 $_SESSION['visite']++;
-echo "Vous avez visité cette page d'accueil", $_SESSION['visite'] ,"fois";
+echo "Vous avez visité cette page d'accueil", $_SESSION['visite'] "fois";
 }else{
 $_SESSION['visite'] = 1;
 }
