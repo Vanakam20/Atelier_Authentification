@@ -1,11 +1,10 @@
 <?php
 // Démarrer une session utilisateur qui sera en mesure de pouvoir gérer les Cookies
 session_start();
-$hex = bin2hex(random_bytes(16));
 // Vérifier si l'utilisateur est déjà en possession d'un cookie valide (cookie authToken ayant le contenu 12345)
 // Si l'utilisateur possède déjà ce cookie, il sera redirigé automatiquement vers la page home.php
 // Dans le cas contraire il devra s'identifier.
-if (isset($_COOKIE['authToken']) && $_COOKIE['authToken'] === $_SESSION['hex']) {
+if (isset($_COOKIE['authToken']) &&  hash('sha256',$_COOKIE['authToken']) === $_COOKIE['authH']) {
     header('Location: page_admin.php');
     exit();
 }
@@ -18,7 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérification simple du username et de son password.
     // Si ok alors on initialise le cookie sur le poste de l'utilisateur 
     if ($username === 'admin' && $password === 'secret') {
+        $hex = bin2hex(random_bytes(16));
+        $auth = hash('sha256', $hex);
         setcookie('authToken', $hex, time() + 60, '/', '', false, true); // Le Cookie est initialisé et valable pendant 1 heure (3600 secondes) 
+        setcookie('authH', $auth, time() + 60, '/', '', false, true);
         header('Location: page_admin.php'); // L'utilisateur est dirigé vers la page home.php
         exit();
     } else {
