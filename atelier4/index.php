@@ -21,14 +21,6 @@ if ($_SERVER['PHP_AUTH_USER'] !== $valid_username || $_SERVER['PHP_AUTH_PW'] !==
     echo 'Nom d\'utilisateur ou mot de passe incorrect.';
     exit;
 }
-if ($_SERVER['PHP_AUTH_USER'] !== $valid_username_utilisateur || $_SERVER['PHP_AUTH_PW'] !== $valid_password_utilisateur) {
-    // Si les identifiants sont incorrects
-    header('WWW-Authenticate: Basic realm="Zone Protégée"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Nom d\'utilisateur ou mot de passe incorrect.';
-    exit;
-}
-
 // Si les identifiants sont corrects
 ?>
 <!DOCTYPE html>
