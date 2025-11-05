@@ -2,3 +2,5 @@ AuthName "Accès protégé"
 AuthType Basic
 AuthUserFile /home/freeandlit/www/atelier1/.htpasswd
 Require valid-user
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
